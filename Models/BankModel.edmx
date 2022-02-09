@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="biodata">
+          <Key>
+            <PropertyRef Name="biodata_id" />
+          </Key>
+          <Property Name="biodata_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="last_name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="age" Type="int" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="state_origin" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="lga" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="business">
+          <Key>
+            <PropertyRef Name="business_id" />
+          </Key>
+          <Property Name="business_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="biodata_id" Type="int" />
+          <Property Name="business_name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="reg_number" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="directors" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="business_email" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="lga">
+          <Key>
+            <PropertyRef Name="lga_id" />
+          </Key>
+          <Property Name="lga_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="lga_state" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="lga_area" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="personal">
+          <Key>
+            <PropertyRef Name="personal_id" />
+          </Key>
+          <Property Name="personal_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="biodata_id" Type="int" />
+          <Property Name="selfie_file" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="selfie_data" Type="varbinary(max)" Nullable="false" />
+          <Property Name="sign_file" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sign_data" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="transactions">
+          <Key>
+            <PropertyRef Name="tran_id" />
+          </Key>
+          <Property Name="tran_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tran_ref" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="tran_date" Type="date" Nullable="false" />
+          <Property Name="tran_status" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="tran_amount" Type="float" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__business__biodat__4BAC3F29">
+          <End Role="biodata" Type="Self.biodata" Multiplicity="0..1" />
+          <End Role="business" Type="Self.business" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="biodata">
+              <PropertyRef Name="biodata_id" />
+            </Principal>
+            <Dependent Role="business">
+              <PropertyRef Name="biodata_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__personal__biodat__5CD6CB2B">
+          <End Role="biodata" Type="Self.biodata" Multiplicity="0..1" />
+          <End Role="personal" Type="Self.personal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="biodata">
+              <PropertyRef Name="biodata_id" />
+            </Principal>
+            <Dependent Role="personal">
+              <PropertyRef Name="biodata_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbModelStoreContainer">
+          <EntitySet Name="biodata" EntityType="Self.biodata" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="business" EntityType="Self.business" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="lga" EntityType="Self.lga" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="personal" EntityType="Self.personal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="transactions" EntityType="Self.transactions" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__business__biodat__4BAC3F29" Association="Self.FK__business__biodat__4BAC3F29">
+            <End Role="biodata" EntitySet="biodata" />
+            <End Role="business" EntitySet="business" />
+          </AssociationSet>
+          <AssociationSet Name="FK__personal__biodat__5CD6CB2B" Association="Self.FK__personal__biodat__5CD6CB2B">
+            <End Role="biodata" EntitySet="biodata" />
+            <End Role="personal" EntitySet="personal" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="biodata">
+          <Key>
+            <PropertyRef Name="biodata_id" />
+          </Key>
+          <Property Name="biodata_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="first_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="age" Type="Int32" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="state_origin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lga" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="businesses" Relationship="Self.FK__business__biodat__4BAC3F29" FromRole="biodata" ToRole="business" />
+          <NavigationProperty Name="personals" Relationship="Self.FK__personal__biodat__5CD6CB2B" FromRole="biodata" ToRole="personal" />
+        </EntityType>
+        <EntityType Name="business">
+          <Key>
+            <PropertyRef Name="business_id" />
+          </Key>
+          <Property Name="business_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="biodata_id" Type="Int32" />
+          <Property Name="business_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="reg_number" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="directors" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="business_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="biodata" Relationship="Self.FK__business__biodat__4BAC3F29" FromRole="business" ToRole="biodata" />
+        </EntityType>
+        <EntityType Name="lga">
+          <Key>
+            <PropertyRef Name="lga_id" />
+          </Key>
+          <Property Name="lga_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lga_state" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lga_area" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="personal">
+          <Key>
+            <PropertyRef Name="personal_id" />
+          </Key>
+          <Property Name="personal_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="biodata_id" Type="Int32" />
+          <Property Name="selfie_file" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="selfie_data" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="sign_file" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sign_data" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <NavigationProperty Name="biodata" Relationship="Self.FK__personal__biodat__5CD6CB2B" FromRole="personal" ToRole="biodata" />
+        </EntityType>
+        <EntityType Name="transaction">
+          <Key>
+            <PropertyRef Name="tran_id" />
+          </Key>
+          <Property Name="tran_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tran_ref" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tran_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="tran_status" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tran_amount" Type="Double" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__business__biodat__4BAC3F29">
+          <End Role="biodata" Type="Self.biodata" Multiplicity="0..1" />
+          <End Role="business" Type="Self.business" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="biodata">
+              <PropertyRef Name="biodata_id" />
+            </Principal>
+            <Dependent Role="business">
+              <PropertyRef Name="biodata_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__personal__biodat__5CD6CB2B">
+          <End Role="biodata" Type="Self.biodata" Multiplicity="0..1" />
+          <End Role="personal" Type="Self.personal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="biodata">
+              <PropertyRef Name="biodata_id" />
+            </Principal>
+            <Dependent Role="personal">
+              <PropertyRef Name="biodata_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="biodatas" EntityType="Self.biodata" />
+          <EntitySet Name="businesses" EntityType="Self.business" />
+          <EntitySet Name="lgas" EntityType="Self.lga" />
+          <EntitySet Name="personals" EntityType="Self.personal" />
+          <EntitySet Name="transactions" EntityType="Self.transaction" />
+          <AssociationSet Name="FK__business__biodat__4BAC3F29" Association="Self.FK__business__biodat__4BAC3F29">
+            <End Role="biodata" EntitySet="biodatas" />
+            <End Role="business" EntitySet="businesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__personal__biodat__5CD6CB2B" Association="Self.FK__personal__biodat__5CD6CB2B">
+            <End Role="biodata" EntitySet="biodatas" />
+            <End Role="personal" EntitySet="personals" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbModelStoreContainer" CdmEntityContainer="dbEntities3">
+          <EntitySetMapping Name="biodatas">
+            <EntityTypeMapping TypeName="dbModel.biodata">
+              <MappingFragment StoreEntitySet="biodata">
+                <ScalarProperty Name="biodata_id" ColumnName="biodata_id" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="state_origin" ColumnName="state_origin" />
+                <ScalarProperty Name="lga" ColumnName="lga" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="businesses">
+            <EntityTypeMapping TypeName="dbModel.business">
+              <MappingFragment StoreEntitySet="business">
+                <ScalarProperty Name="business_id" ColumnName="business_id" />
+                <ScalarProperty Name="biodata_id" ColumnName="biodata_id" />
+                <ScalarProperty Name="business_name" ColumnName="business_name" />
+                <ScalarProperty Name="reg_number" ColumnName="reg_number" />
+                <ScalarProperty Name="directors" ColumnName="directors" />
+                <ScalarProperty Name="business_email" ColumnName="business_email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lgas">
+            <EntityTypeMapping TypeName="dbModel.lga">
+              <MappingFragment StoreEntitySet="lga">
+                <ScalarProperty Name="lga_id" ColumnName="lga_id" />
+                <ScalarProperty Name="lga_state" ColumnName="lga_state" />
+                <ScalarProperty Name="lga_area" ColumnName="lga_area" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="personals">
+            <EntityTypeMapping TypeName="dbModel.personal">
+              <MappingFragment StoreEntitySet="personal">
+                <ScalarProperty Name="personal_id" ColumnName="personal_id" />
+                <ScalarProperty Name="biodata_id" ColumnName="biodata_id" />
+                <ScalarProperty Name="selfie_file" ColumnName="selfie_file" />
+                <ScalarProperty Name="selfie_data" ColumnName="selfie_data" />
+                <ScalarProperty Name="sign_file" ColumnName="sign_file" />
+                <ScalarProperty Name="sign_data" ColumnName="sign_data" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="transactions">
+            <EntityTypeMapping TypeName="dbModel.transaction">
+              <MappingFragment StoreEntitySet="transactions">
+                <ScalarProperty Name="tran_id" ColumnName="tran_id" />
+                <ScalarProperty Name="tran_ref" ColumnName="tran_ref" />
+                <ScalarProperty Name="tran_date" ColumnName="tran_date" />
+                <ScalarProperty Name="tran_status" ColumnName="tran_status" />
+                <ScalarProperty Name="tran_amount" ColumnName="tran_amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

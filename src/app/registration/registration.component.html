@@ -1,0 +1,151 @@
+<div class="container container-fluid bg-blue text-white">
+  <h3>Mock Bank Registration</h3>
+    <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+
+      <div class="form-group">
+        <div class="row">      
+            <div class="col-sm-3">
+              <label for="ufirstName">First Name</label>
+              <input  placeholder="John" name="ufirstname" [(ngModel)]="biodata.first_name" type="text" class="form-control" #firstname = "ngModel" required/>      
+              <div [hidden] ="firstname.valid || firstname.pristine" class="alert alert-danger">lastname is required</div>
+            </div>        
+
+            <div class="col-sm-3">
+              <label for="ulastname">Last Name</label>
+              <input placeholder="Doe" name="ulastname" [(ngModel)]="biodata.last_name" type="text" class="form-control" #lastname = "ngModel" required/>
+              <div [hidden] ="lastname.valid || lastname.pristine" class="alert alert-danger">lastname is required</div>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2">
+              <label for="astate">Select State Of Origin</label>       
+              <select name="astate" [(ngModel)]="cstate"  class="form-control" #cs = "ngModel" required>          
+                <option *ngFor="let cstate of cstates" [value]="cstate">{{ cstate }}</option>
+              </select>
+          </div>
+  
+          <div class="col-sm-2">
+            <label for="alga">Select Local Govt. Area</label>       
+            <select name="alga" *ngIf="cstate" [(ngModel)]="biodata.lga" [value]="clga"  class="form-control" #cl = "ngModel" required>          
+              <option *ngFor="let clga of clgas"> {{ clga }} </option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+
+
+
+      <div class="form-group">
+          <label for="uage">Age</label>
+          <input  placeholder="18" name="uage" (change)="changeAge($event)" [(ngModel)]="biodata.age" type="number" class="form-control" #uage="ngModel" required/>        
+          <div [hidden] ="uage.valid && uage.value > 17 || uage.pristine" class="alert alert-danger">Age is required</div>
+      </div>      
+  
+        <div class="row">
+          <div class="col-sm-3">
+              <label for="uphone">Phone</label>
+              <input name="uphone" placeholder="08000000000" [pattern]="phonepattern" [(ngModel)]="biodata.phone" type="number" class="form-control" #uphone="ngModel" required/>
+              <div [hidden] ="uphone.valid || uphone.pristine" class="alert alert-danger">Contact is required</div>
+              <div *ngIf="uphone.errors">  
+                <div *ngIf="uphone.errors['pattern']"  class="alert alert-danger"> 
+                    Phone is imcomplete, check again.
+                </div>	
+              </div>    
+          </div>
+      
+            <div class="col-sm-3">
+              <label for="uemail">Email</label>
+              <input  placeholder="someone@email.com" name="uemail" [pattern]="emailpattern" [(ngModel)]="biodata.email" type="email" class="form-control" #uemail="ngModel" required/>
+              <div [hidden] = "uemail.valid || uemail.pristine" class="alert alert-danger">Email is required</div>
+              <div *ngIf="uemail.errors">  
+                <div *ngIf="uemail.errors['pattern']"  class="alert alert-danger"> 
+                    Email address is not valid.
+                </div>	
+              </div>           
+            </div>          
+        </div>
+          
+                
+              <div class="col-sm-3" >
+                  <div class="card-header"> Upload Picture</div> 
+                  <img id="selectedFile" [src]="imageurl" height="200" class="rounded mx-auto d-block">
+                  <input id="imgsrc" type="file" accept="image/png, image/gif, image/jpeg" (change)="onFileChanged($event)">                  
+              </div>
+
+              <div class="col-sm-3" >
+                  <div class="card-header">Upload Signature</div>   
+                  <img [src]="signurl" height="200" class="rounded mx-auto d-block"/>
+                  <input id="signsrc" type="file" accept="image/png, image/gif, image/jpeg" (change)="onSignChanged($event)">                                    
+              </div>
+
+      <div class="business-check">
+        <input [checked]="showhide" (change)="showhide = !showhide" class="form-check-input" type="checkbox" id="flexCheckDefault" #formcheck>
+        <label class="form-check-label" for="flexCheckDefault">
+        Any Business Records? {{showhide ? "Yes" : "No"}}
+        </label>        
+      </div> 
+
+      <div id="MyPopup" [ngClass]="showit" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" (click)="closePop()" class="close" data-toggle="modal" data-target="#MyPopUp" data-dismiss="modal">
+                        &times;</button>
+                    <h4 class="modal-title">
+                      {{pop_title}}
+                    </h4>
+                </div>
+                <div class="modal-body">{{pop_message}}</div>
+                <div class="modal-footer">
+                    <button type="button" (click)="closePop()" class="btn btn-danger" data-dismiss="modal">
+                        Close</button>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div [hidden]="!showhide" class="row gx-3 gy-2 align-items-center">
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="visually-hidden" for="businessName">Name</label>
+          <input [(ngModel)]="business.business_name" type="text" class="form-control" id="businessName" placeholder="Jane Doe">
+        </div>
+
+        <div class="col-sm-3">
+          <label class="visually-hidden" for="regnumber">Reg Number</label>
+          <input  #ubsreg="ngModel"  [(ngModel)]="business.reg_number" type="text" class="form-control" id="regnumber" placeholder="Registration No">
+        </div>
+
+        <div class="col-sm-3">
+          <label class="visually-hidden" for="directors">Directors</label>
+          <input  #ubsdir="ngModel" [(ngModel)]="business.directors" type="text" class="form-control" id="directors" placeholder="Directors">
+        </div>
+
+        <div class="col-sm-3">          
+          <label class="visually-hidden" for="businessEmail">Email</label>                       
+          <input [(ngModel)]="business.business_email" [pattern]="emailpattern" type="text" class="form-control" id="businessEmail" placeholder="Email" #bsmail="ngModel">
+          <div *ngIf="bsmail.errors">  
+            <div *ngIf="bsmail.errors['pattern']"> 
+                Business Email not valid.
+            </div>	
+          </div> 
+      </div>
+
+      </div>
+      </div>
+
+      <div *ngIf="file_name && pic_name">      
+      <div class="form-group">
+        <button id="usubmit" (click)="onSubmit()"
+                name="usubmit" 
+                type="submit" 
+                class="btn btn-primary"
+                [disabled]="!registerForm.form.valid">Submit</button>
+      </div>
+      </div>      
+    </form>
+    
+  </div>

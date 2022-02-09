@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="dbModelStoreContainer" CdmEntityContainer="dbEntities3">
+    <EntitySetMapping Name="biodatas">
+      <EntityTypeMapping TypeName="dbModel.biodata">
+        <MappingFragment StoreEntitySet="biodata">
+          <ScalarProperty Name="biodata_id" ColumnName="biodata_id" />
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="last_name" ColumnName="last_name" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="state_origin" ColumnName="state_origin" />
+          <ScalarProperty Name="lga" ColumnName="lga" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="businesses">
+      <EntityTypeMapping TypeName="dbModel.business">
+        <MappingFragment StoreEntitySet="business">
+          <ScalarProperty Name="business_id" ColumnName="business_id" />
+          <ScalarProperty Name="biodata_id" ColumnName="biodata_id" />
+          <ScalarProperty Name="business_name" ColumnName="business_name" />
+          <ScalarProperty Name="reg_number" ColumnName="reg_number" />
+          <ScalarProperty Name="directors" ColumnName="directors" />
+          <ScalarProperty Name="business_email" ColumnName="business_email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="lgas">
+      <EntityTypeMapping TypeName="dbModel.lga">
+        <MappingFragment StoreEntitySet="lga">
+          <ScalarProperty Name="lga_id" ColumnName="lga_id" />
+          <ScalarProperty Name="lga_state" ColumnName="lga_state" />
+          <ScalarProperty Name="lga_area" ColumnName="lga_area" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="personals">
+      <EntityTypeMapping TypeName="dbModel.personal">
+        <MappingFragment StoreEntitySet="personal">
+          <ScalarProperty Name="personal_id" ColumnName="personal_id" />
+          <ScalarProperty Name="biodata_id" ColumnName="biodata_id" />
+          <ScalarProperty Name="selfie_file" ColumnName="selfie_file" />
+          <ScalarProperty Name="selfie_data" ColumnName="selfie_data" />
+          <ScalarProperty Name="sign_file" ColumnName="sign_file" />
+          <ScalarProperty Name="sign_data" ColumnName="sign_data" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="transactions">
+      <EntityTypeMapping TypeName="dbModel.transaction">
+        <MappingFragment StoreEntitySet="transactions">
+          <ScalarProperty Name="tran_id" ColumnName="tran_id" />
+          <ScalarProperty Name="tran_ref" ColumnName="tran_ref" />
+          <ScalarProperty Name="tran_date" ColumnName="tran_date" />
+          <ScalarProperty Name="tran_status" ColumnName="tran_status" />
+          <ScalarProperty Name="tran_amount" ColumnName="tran_amount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

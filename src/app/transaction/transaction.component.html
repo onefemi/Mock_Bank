@@ -1,0 +1,40 @@
+<div class="jumbotron jumbotron-fluid">
+    <h1 class="display-4">Transaction History</h1>
+    <p class="lead">Detailed list of transactions and status</p>
+    <hr class="my-4">    
+    <div class="d-flex justify-content-between align-items-center mt-3">
+        <ul class="nav nav-tabs w-75">
+            <li class="nav-item"> <a class="nav-link active" href="#history">History</a> </li>
+        </ul>                        
+    </div>
+    <div class="table-responsive mt-3">
+        <table class="table table-dark table-borderless">
+            <thead>
+                <tr>
+                    <th scope="col">Transaction Reference</th>                    
+                    <th scope="col">Date</th>
+                    <th scope="col">Status</th>
+                    <th scope="col" class="text-right">Amount</th>
+                </tr>
+            </thead>
+            <tbody>                
+                <tr *ngFor="let item of records">
+                        <td scope="row">{{item.tranRef}}</td>
+                        <td><span>{{item.date}}</span></td>
+                        <td><span>{{item.status}}</span></td>                        
+                        <td>N{{item.amount}} </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex justify-content-between align-items-center results"> <span class="pl-md-3">Showing<b class="text-white"> 1-7 0f 200 </b> trasactions</span>
+        <div class="pt-3">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item disabled"> <a class="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">&lt;</span> </a> </li>
+                    <li class="page-item"> <a class="page-link" href="#" aria-label="Next"> <span aria-hidden="true">&gt;</span> </a> </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>

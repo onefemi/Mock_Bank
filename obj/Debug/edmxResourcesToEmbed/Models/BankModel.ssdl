@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="biodata">
+    <Key>
+      <PropertyRef Name="biodata_id" />
+    </Key>
+    <Property Name="biodata_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="first_name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="last_name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="age" Type="int" Nullable="false" />
+    <Property Name="phone" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="state_origin" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="lga" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="business">
+    <Key>
+      <PropertyRef Name="business_id" />
+    </Key>
+    <Property Name="business_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="biodata_id" Type="int" />
+    <Property Name="business_name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="reg_number" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="directors" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="business_email" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="lga">
+    <Key>
+      <PropertyRef Name="lga_id" />
+    </Key>
+    <Property Name="lga_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="lga_state" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="lga_area" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="personal">
+    <Key>
+      <PropertyRef Name="personal_id" />
+    </Key>
+    <Property Name="personal_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="biodata_id" Type="int" />
+    <Property Name="selfie_file" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="selfie_data" Type="varbinary(max)" Nullable="false" />
+    <Property Name="sign_file" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="sign_data" Type="varbinary(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="transactions">
+    <Key>
+      <PropertyRef Name="tran_id" />
+    </Key>
+    <Property Name="tran_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tran_ref" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="tran_date" Type="date" Nullable="false" />
+    <Property Name="tran_status" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="tran_amount" Type="float" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__business__biodat__4BAC3F29">
+    <End Role="biodata" Type="Self.biodata" Multiplicity="0..1" />
+    <End Role="business" Type="Self.business" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="biodata">
+        <PropertyRef Name="biodata_id" />
+      </Principal>
+      <Dependent Role="business">
+        <PropertyRef Name="biodata_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__personal__biodat__5CD6CB2B">
+    <End Role="biodata" Type="Self.biodata" Multiplicity="0..1" />
+    <End Role="personal" Type="Self.personal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="biodata">
+        <PropertyRef Name="biodata_id" />
+      </Principal>
+      <Dependent Role="personal">
+        <PropertyRef Name="biodata_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="dbModelStoreContainer">
+    <EntitySet Name="biodata" EntityType="Self.biodata" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="business" EntityType="Self.business" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="lga" EntityType="Self.lga" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="personal" EntityType="Self.personal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="transactions" EntityType="Self.transactions" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__business__biodat__4BAC3F29" Association="Self.FK__business__biodat__4BAC3F29">
+      <End Role="biodata" EntitySet="biodata" />
+      <End Role="business" EntitySet="business" />
+    </AssociationSet>
+    <AssociationSet Name="FK__personal__biodat__5CD6CB2B" Association="Self.FK__personal__biodat__5CD6CB2B">
+      <End Role="biodata" EntitySet="biodata" />
+      <End Role="personal" EntitySet="personal" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
